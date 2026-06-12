@@ -11,10 +11,13 @@ jobs:
 
     steps:
       - name: Notificación push devops itla
+        env:
+          MSG: |
+            El Usuario ${{ github.actor }} realizó push al repositorio ${{ github.repository }} del branch ${{ github.ref_name }}
+            Mensaje del commit: ${{ github.event.head_commit.message }}
+            Link: ${{ github.event.head_commit.url }}
         run: |
           curl -H "Title: ITLA's devops Team - Alert" \
                -H "Priority: default" \
-               -d "El Usuario ${{ github.actor }} realizó push al repositorio ${{ github.repository }} del branch ${{ github.ref_name }}" \
-               -d "Mensaje del Commit: ${{ github.event.head_commit.message }}" \
-               -d "Link: ${{ github.event.head_commit.url }}" \
+               -d "$MSG" \
                https://ntfy.sh/Practica-4-CI
